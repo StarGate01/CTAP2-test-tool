@@ -29,7 +29,9 @@ cc_library(
     name = "hidapi-linux",
     srcs = ["linux/hid.c"],
     hdrs = ["hidapi/hidapi.h"],
+    copts = ["-I/usr/include"],
     linkopts = [
+        "-L/usr/lib",
         "-ludev",
     ],
     includes = ["hidapi"],
