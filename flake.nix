@@ -19,6 +19,7 @@
               autoconf
               autogen
               libtool
+              expect
            ];
        }).env;
     };
