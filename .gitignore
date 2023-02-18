@@ -1,1 +1,3 @@
 bazel-*
+corpus_tests/artifacts
+results/
