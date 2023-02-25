@@ -20,6 +20,7 @@
               autogen
               libtool
               expect
+              git
            ];
        }).env;
     };

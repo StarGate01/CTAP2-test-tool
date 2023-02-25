@@ -2,16 +2,22 @@
 
 set timeout 300
 
-set cpipe [lindex $argv 0];
-set cpipe_msg [lindex $argv 1];
-set arguments [lrange $argv 2 end]
-spawn bazel run //:fido2_conformance -- --token_path=_ {*}$arguments
+spawn bazel run //:fido2_conformance -- --token_path=_ {*}$argv
 set baz_id $spawn_id
 
 while 1 {
-    expect "Please replug the device, then hit enter."
-    spawn bash -c "echo '$cpipe_msg' > $cpipe"
-    sleep 14
     set spawn_id $baz_id
-    send "\r"
+    expect "Please replug the device, then hit enter." {
+        spawn bash -c "echo 'r' > cpipe-jcardsim"
+        spawn bash -c "echo 'r' > cpipe-bridge"
+        sleep 15
+        set spawn_id $baz_id
+        send "\r"
+        sleep 2
+        spawn bash -c "echo 'p' > cpipe-bridge"
+    } \
+    "Please touch your security key!" {
+        sleep 2
+        spawn bash -c "echo 'p' > cpipe-bridge"
+    }
 }
