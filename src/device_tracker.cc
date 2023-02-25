@@ -245,7 +245,8 @@ void DeviceTracker::LogTest(std::string test_id, std::string test_description,
                                   result.error_message.value()));
   } else {
     PrintSuccessMessage(
-        absl::StrCat("Test successful: ", result.test_description));
+        absl::StrCat("Test successful: ", result.test_description, 
+                                  " (id: ", result.test_id, ")"));
   }
   for (std::string_view observation : result.observations) {
     PrintWarningMessage(observation);
