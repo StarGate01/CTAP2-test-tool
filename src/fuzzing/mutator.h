@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <stddef.h>
 
 namespace fido2_tests {
 namespace mutator {

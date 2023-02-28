@@ -2,7 +2,7 @@
 
 set timeout 300
 
-spawn bazel run //:fido2_conformance -- --token_path=_ {*}$argv
+spawn stdbuf -i0 -o0 -e0 bazel run //:fido2_conformance -- --token_path=_ {*}$argv
 set baz_id $spawn_id
 
 while 1 {
