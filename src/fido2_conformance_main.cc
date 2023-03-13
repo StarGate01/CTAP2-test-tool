@@ -34,6 +34,9 @@ DEFINE_bool(verbose, false, "Printing debug logs, i.e. transmitted packets.");
 DEFINE_string(test_ids, "",
               "Comma-separated list of test IDs to run. Empty runs all tests.");
 
+DEFINE_string(test_ids_exclude, "",
+              "Comma-separated list of test IDs to exclude.");
+
 // Calling this function first connects to the device and then executes all test
 // series listed.
 //
@@ -81,11 +84,15 @@ int main(int argc, char** argv) {
   if (!FLAGS_test_ids.empty()) {
     test_ids = absl::StrSplit(FLAGS_test_ids, ',');
   }
+  std::set<std::string> test_ids_exclude;
+  if (!FLAGS_test_ids_exclude.empty()) {
+    test_ids_exclude = absl::StrSplit(FLAGS_test_ids_exclude, ',');
+  }
   // Setup and run all tests, while tracking their results.
   const std::vector<std::unique_ptr<fido2_tests::BaseTest>>& tests =
       fido2_tests::runners::GetTests();
   fido2_tests::runners::RunTests(device.get(), &tracker, &command_state, tests,
-                                 test_ids);
+                                 test_ids, test_ids_exclude);
   // Reset the device to a clean state.
   command_state.Reset();
 
