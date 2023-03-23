@@ -13,11 +13,14 @@ while 1 {
         sleep 15
         set spawn_id $baz_id
         send "\r"
-        sleep 2
-        spawn bash -c "echo 'p' > cpipe-bridge"
+        #sleep 2
+        #spawn bash -c "echo 'p' > cpipe-bridge"
     } \
     "Please touch your security key!" {
-        sleep 2
-        spawn bash -c "echo 'p' > cpipe-bridge"
+        #sleep 1
+        #spawn bash -c "echo 'p' > cpipe-bridge"
+    } \
+    eof {
+        exit 0
     }
 }
