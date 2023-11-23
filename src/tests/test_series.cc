@@ -173,7 +173,9 @@ void RunTests(DeviceInterface* device, DeviceTracker* device_tracker,
         !device_tracker->HasVersion("FIDO_2_1_PRE")) {
       continue;
     }
+    std::cout << "Setting up test " << test->GetId() << std::endl;
     test->Setup(command_state);
+    std::cout << "Executing test " << test->GetId() << std::endl;
     std::optional<std::string> error_message =
         test->Execute(device, device_tracker, command_state);
     // If tests involving the PIN fail, the internal state might not track the
